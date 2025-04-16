@@ -10,7 +10,7 @@ import java.util.Map;
 @RequestMapping("/api")
 public class AuthController {
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login", produces = "application/json")
     public String login(@RequestBody Map<String, String> credentials) {
         String username = credentials.get("username");
         String password = credentials.get("password");

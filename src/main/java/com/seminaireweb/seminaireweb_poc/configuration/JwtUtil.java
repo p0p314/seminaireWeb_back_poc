@@ -4,17 +4,20 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import org.apache.tomcat.util.json.JSONParser;
 
 public class JwtUtil {
     private static final String SECRET = "my-secret-key";
     private static final Algorithm algorithm = Algorithm.HMAC256(SECRET);
 
     public static String generateToken(String username ,String password) {
-        return JWT.create()
+        String token = JWT.create()
                 .withIssuer("myapp")
                 .withClaim("username", username)
                 .withClaim("Password", password)
                 .sign(algorithm);
+
+        return "{\"token\":" + token + "}";
     }
 
     public static String validateToken(String token) {
