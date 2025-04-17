@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "credit_cards")
+@Table(name = "cards")
 public class Credit_cards {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
