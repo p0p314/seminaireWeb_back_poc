@@ -102,4 +102,16 @@ public class AuthController {
             return "Token invalide : " + e.getMessage();
         }
     }
+    @GetMapping(value = "/logout", produces = "application/json")
+    public ResponseEntity<Object> logout(@RequestHeader("Authorization") String authHeader) {
+        try {
+            String token = authHeader.replace("Bearer ", "");
+            String terminal = JwtUtil.getTerminal(token);
+            if(terminal.isEmpty()) return ResponseEntity.badRequest().body("Token invalide");
+            return ResponseEntity.ok(Collections.singletonMap("terminal",JwtUtil.getTerminal(token) ));
+        } catch (Exception e) {
+            log.error("Erreur lors de la déconnexion", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Une erreur est survenue lors de la déconnexion");
+        }
+    }
 }
