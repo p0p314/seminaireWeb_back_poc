@@ -11,13 +11,18 @@ public class JwtUtil {
     private static final Algorithm algorithm = Algorithm.HMAC256(SECRET);
 
     public static String generateToken(String username ,String password) {
-        String token = JWT.create()
-                .withIssuer("myapp")
+        return JWT.create()
+                .withIssuer("web")
                 .withClaim("username", username)
                 .withClaim("Password", password)
                 .sign(algorithm);
-
-        return "{\"token\":" + token + "}";
+    }
+    public static String generateTokenDAB(String numbers ,String pin_code) {
+        return JWT.create()
+                .withIssuer("dab")
+                .withClaim("numbers", numbers)
+                .withClaim("pin_code", pin_code)
+                .sign(algorithm);
     }
 
     public static String validateToken(String token) {
